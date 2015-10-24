@@ -7,7 +7,7 @@ class PhotoTest < ActiveSupport::TestCase
   def setup
   	@user = User.new(name: 'test', email: 'test@test.com', password: PASSWORD, password_confirmation: PASSWORD)
   	@user.save
-  	@photo = @user.photos.build(title: 'test', content: File.new(TEST_PHOTO_PATH))
+  	@photo = @user.photos.build(title: 'test', file: File.new(TEST_PHOTO_PATH))
   end
 
   test "should be valid" do
@@ -24,8 +24,8 @@ class PhotoTest < ActiveSupport::TestCase
   	assert_not @photo.valid?
   end
 
-  test "content should be present" do
-  	@photo.content = nil
+  test "file should be present" do
+  	@photo.file = nil
   	assert_not @photo.valid?
   end
 end
