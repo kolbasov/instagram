@@ -1,0 +1,9 @@
+<% unless photo.comments.nil? %>
+	<div class="comments">
+		<ul>
+			<% photo.comments.each do |comment| %>
+				<li><%= render 'shared/comment', comment: comment  %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

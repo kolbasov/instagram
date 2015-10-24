@@ -1,0 +1,31 @@
+// Place all the styles related to the Photos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.photo .date {
+	float: right;
+}
+
+.photo .title {
+	margin-bottom: 7px;
+}
+
+.comments {
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.comments ul {
+	list-style: none;
+	padding: 0;
+}
+
+.comments ul li {
+	line-height: 21px;
+}
+
+.photo a,
+.title a,
+.comments a {
+	font-weight: bold;
+}

@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div><h4><%= user.full_name %></h1></div>
+		<div><h4><%= link_to "@" + user.name, user_url(user) %></h2></div>
+		<% if show_bio %>
+			<p><%= user.bio %></p>
+		<% end %>
+  </div>
+  <div class="panel-footer">
+		<%= pluralize(user.photos.count, "photo") %>
+  </div>
+</div>

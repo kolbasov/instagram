@@ -1,0 +1,6 @@
+<% unless photo.title.nil? %>
+	<div class="title">
+		<%= link_to photo.user.name, user_path(photo.user) %>
+		<%= photo.title %>
+	</div>
+<% end %>

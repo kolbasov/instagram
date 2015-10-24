@@ -1,0 +1,20 @@
+<% show_comment_form ||= false %>
+<div class="photo panel panel-default">
+	<div class="panel-heading">
+		<%= link_to photo.user.name, user_path(photo.user) %>
+		<span class="date"><%= time_ago_in_words(photo.created_at) %></span>
+	</div>
+	<div class="panel-body">
+		<%= link_to photo_path(photo) do %>
+			<%= image_tag photo.file.url, class: "img-responsive" %>
+		<% end %>		
+	</div>
+	<div class="panel-footer">
+		<%= render 'shared/title', photo: photo %>
+		<%= render 'shared/comments', photo: photo %>
+		<% if logged_in? && show_comment_form %>
+			<hr />
+			<%= render 'shared/comment_form', photo: @photo %>
+		<% end %>
+	</div>
+</div>
