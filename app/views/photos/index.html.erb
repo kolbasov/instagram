@@ -1,5 +1,5 @@
 <div class="row">
-	<% if @photos.count > 0 %>
+	<% if @photos.count == 0 %>
 		<div class="jumbotron center">
   		<h2 class="text-center"><%= link_to "Be the first to sign up", signup_path %></h2>
 		</div>
