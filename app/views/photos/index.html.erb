@@ -1,17 +1,23 @@
 <div class="row">
-	<div class="col-md-3">
-		<% if logged_in? %>
-		    <section class="user_info">
-		    	<%= render 'shared/user', user: current_user, show_bio: false %>
-		    </section>
-		    <section class="photo_form">
-		    	<%= render 'photo_form' %>
-		    </section>
-		<% end %>
-	</div>
-	<div class="col-md-6">
-		<% @photos.each do |photo| %>
-			<%= render 'shared/photo', photo: photo %>
-		<% end %>
-	</div>
+	<% if @photos.count > 0 %>
+		<div class="jumbotron center">
+  		<h2 class="text-center"><%= link_to "Be the first to sign up", signup_path %></h2>
+		</div>
+	<% else %>
+		<div class="col-md-3">
+			<% if logged_in? %>
+			    <section class="user_info">
+			    	<%= render 'shared/user', user: current_user, show_bio: false %>
+			    </section>
+			    <section class="photo_form">
+			    	<%= render 'photo_form' %>
+			    </section>
+			<% end %>
+		</div>
+		<div class="col-md-6">
+			<% @photos.each do |photo| %>
+				<%= render 'shared/photo', photo: photo %>
+			<% end %>
+		</div>
+	<% end %>
 </div>
