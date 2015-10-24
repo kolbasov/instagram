@@ -1,6 +1,5 @@
 <% if object.errors.any? %>
   <div id="error_explanation">
-    <p>There were problems with the following fields:</p>
     <div class="alert alert-danger" role="alert">
       <ul>
         <% object.errors.full_messages.each do |message| %>
