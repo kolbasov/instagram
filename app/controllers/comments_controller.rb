@@ -1,11 +1,4 @@
 class CommentsController < ApplicationController
-	# def create 
-	# 	@photo = Photo.find(params[:id])
-	# 	comment = @photo.comments.build(comment_params)
-	# 	comment.user_id = current_user.id
-	# 	comment.save
-	# 	redirect_to @photo
-	# end
 	def create 
 		@photo = Photo.find(params[:id])
 		comment = @photo.comments.build(comment_params)
