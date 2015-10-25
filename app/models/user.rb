@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
 		following.include?(other_user)
 	end
 
+	def User.find_by_name(name)
+		User.where('lower(name) = :name', name: name.downcase).first
+	end
+
 	# Returns true if the given token matches the digest.
 	def authenticated?(remember_token)
 		return false if remember_digest.nil?

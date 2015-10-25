@@ -3,8 +3,12 @@ class UsersController < ApplicationController
 	before_action :correct_user, only: [:edit, :update]
 	
 	def show
-		@user = User.find_by(name: params[:name])
-		@photos = @user.photos
+		@user = User.find_by_name(params[:name])
+		if @user.nil?
+			redirect_to root_path
+		else
+			@photos = @user.photos
+		end
 	end
 
 	def new 
@@ -23,11 +27,11 @@ class UsersController < ApplicationController
 	end
 
 	def edit
-		@user = User.find_by(name: params[:name])
+		@user = User.find_by_name(params[:name])
 	end
 
 	def update
-		@user = User.find_by(name: params[:name])
+		@user = User.find_by_name(params[:name])
 		if @user.update_attributes(update_params)
 			flash[:success] = "Profile updated"
 			redirect_to @user
@@ -38,14 +42,14 @@ class UsersController < ApplicationController
 
 	def following
 		@title = 'Following'
-		@user = User.find_by(name: params[:name])
+		@user = User.find_by_name(params[:name])
 		@users = @user.following
 		render 'show_follow'
 	end
 
 	def followers
 		@title = 'Followers'
-		@user = User.find_by(name: params[:name])
+		@user = User.find_by_name(params[:name])
 		@users = @user.followers
 		render 'show_follow'
 	end
