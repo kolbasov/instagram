@@ -1,24 +1,51 @@
 class User < ActiveRecord::Base
-	before_save { self.email = email.downcase }
-	validates :name, 	presence: true, uniqueness: true, length: { maximum: 50 }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-	validates :email, presence: true, uniqueness: {case_sensitive: false}, length: { maximum: 255 },
+	attr_accessor :remember_token
+	before_save { self.email = email.downcase }
+	validates :name, 	
+						presence: true, 
+						uniqueness: true, 
+						length: { maximum: 50 }
+	validates :email, 
+						presence: true, 
+						uniqueness: { case_sensitive: false }, 
+						length: { maximum: 255 },
 						format: { with: VALID_EMAIL_REGEX }
 
 	has_many :photos, dependent: :destroy
 	has_many :comments, dependent: :destroy
 
+	# Following
+	has_many :active_relationships, class_name: 'Relationship',
+																	foreign_key: 'follower_id',
+																	dependent: :destroy
+	has_many :following, through: :active_relationships, source: :followed 
+
+	# Followers
+	has_many :passive_relationships, class_name: 'Relationship',
+																	 foreign_key: 'followed_id',
+																	 dependent: :destroy
+	has_many :followers, through: :passive_relationships, source: :follower
+
+
 	has_secure_password  
 	validates :password, presence: true, length: { minimum: 6 }
-
-	attr_accessor :remember_token
 
 	def to_param
   	name
 	end
 
 	def full_name
-		"#{self.first_name} #{self.last_name}"
+		"#{first_name} #{last_name}"
+	end
+
+	def screen_name
+		"@#{name}"
+	end
+
+	def feed
+		followers = "select followed_id from relationships where follower_id = :user_id"
+		Photo.where("user_id in (#{followers}) or user_id = :user_id", user_id: id)
 	end
 
 	# Remembers a user in the database for use in persistent sessions.
@@ -30,6 +57,18 @@ class User < ActiveRecord::Base
 	# Forgets a user.
 	def forget
 		update_attribute(:remember_digest, nil)
+	end
+
+	def follow(other_user)
+		active_relationships.create(followed_id: other_user.id)
+	end
+
+	def unfollow(other_user)
+		active_relationships.find_by(followed_id: other_user.id).destroy
+	end
+
+	def following?(other_user)
+		following.include?(other_user)
 	end
 
 	# Returns true if the given token matches the digest.

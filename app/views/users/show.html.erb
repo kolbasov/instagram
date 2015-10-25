@@ -1,12 +1,11 @@
 <div class="row">
 	<div class="col-md-3">
-		<% if logged_in? %>
-		    <section class="user_info">
-		    	<%= render 'shared/user', user: @user, show_bio: true %>
-		    </section>
-		<% end %>
+    <div class="user-info">
+    	<%= render 'shared/user', user: @user, show_bio: true %>
+    </div>
 	</div>
 	<div class="col-md-6">
+		<%= render 'follow_form' if logged_in? %>
 		<% @photos.each do |photo| %>
 			<%= render 'shared/photo', photo: photo %>
 		<% end %>

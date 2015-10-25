@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-3">
+    <section class="user_info">
+      <%= render 'shared/user', user: @user, show_bio: true %>
+    </section>
+  </div>
+  <div class="col-md-6">
+    <h3><%= @title %></h3>
+    <% if @users.any? %>
+      <!-- <ul class="users follow list-group">
+        <% @users.each do |u| %>
+          <li class="list-group-item"><%= link_to u.name, user_path(u) %></li>
+        <% end %>
+      </ul> -->
+      <div class="users follow">
+        <div class="list-group">
+          <% @users.each do |u| %>
+              <%= link_to user_path(u), class: "list-group-item" do %>
+                <h4 class="list-group-item-heading">
+                  <%= u.full_name =%>
+                </h4>
+                <p class="list-group-item-text"><%= u.screen_name %></p>
+                <p class="list-group-item-text"><%= u.bio %></p>
+              <% end %>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

@@ -1,8 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
-/* mixins, variables, etc. */
-$gray-medium-light: #eaeaea;
+@import "theme";
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -52,6 +50,30 @@ textarea {
   @extend .has-error;
   .form-control {
     color: $state-danger-text;
+  }
+}
+
+/* Stats */
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: $theme-color;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $theme-color;
+    }
+  }
+  strong {
+    display: block;
   }
 }
 

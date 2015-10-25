@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   get '/:name/edit' => 'users#edit', as: :edit_user
   patch '/:name' => 'users#update'
 
+  # Following/followers
+  get '/:name/following' => 'users#following', as: :following_user
+  get '/:name/followers' => 'users#followers', as: :followers_user
+  resources :relationships, only: [:create, :destroy]
+
   # Photos
   get '/' => 'photos#index'
   get '/p/new' => 'photos#new', as: :new_photo

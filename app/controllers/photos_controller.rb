@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
 	before_action :logged_in_user, only: [:create, :destroy]
 
 	def index
-		@photos = Photo.all
+		@photos = logged_in? ? current_user.feed : Photo.all
 		# For posting a new photo from the home page.
 		@photo = Photo.new
 	end
@@ -31,7 +31,7 @@ class PhotosController < ApplicationController
 		@comment = Comment.new
 		@comments = @photo.comments
 	end
-
+	
 	private
 		def photo_params
 			params.require(:photo).permit(:title, :file)
